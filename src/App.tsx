@@ -26,7 +26,7 @@ function App() {
   }
 
   const handleCategoryChange = (newCategory: keyof typeof EMOJI_CATEGORIES) => {
-    console.warn(`Category selected: ${newCategory}`)
+    console.error(`Category selected: ${newCategory}`)
     setCategory(newCategory)
   }
 
