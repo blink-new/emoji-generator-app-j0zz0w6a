@@ -4,6 +4,8 @@ import { Copy, Shuffle } from 'lucide-react'
 import { Routes, Route } from 'react-router-dom'
 import { Login } from './Login'
 import { Nav } from './Nav'
+import { AuthProvider } from './contexts/AuthContext'
+import { ProtectedRoute } from './components/ProtectedRoute'
 
 const EMOJI_CATEGORIES = {
   faces: ['😀', '😂', '🥹', '😊', '😇', '🥰', '😍', '🤩', '😘', '😋'],
@@ -29,7 +31,6 @@ function EmojiGenerator() {
   }
 
   const handleCategoryChange = (newCategory: keyof typeof EMOJI_CATEGORIES) => {
-    console.error(`Category selected: ${newCategory}`)
     setCategory(newCategory)
   }
 
@@ -103,13 +104,22 @@ function EmojiGenerator() {
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Nav />
-      <Routes>
-        <Route path="/" element={<EmojiGenerator />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </div>
+    <AuthProvider>
+      <div className="min-h-screen bg-gray-50">
+        <Nav />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route 
+            path="/" 
+            element={
+              <ProtectedRoute>
+                <EmojiGenerator />
+              </ProtectedRoute>
+            } 
+          />
+        </Routes>
+      </div>
+    </AuthProvider>
   )
 }
 
