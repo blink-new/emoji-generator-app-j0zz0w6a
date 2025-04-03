@@ -25,6 +25,11 @@ function App() {
     await navigator.clipboard.writeText(emoji)
   }
 
+  const handleCategoryChange = (newCategory: keyof typeof EMOJI_CATEGORIES) => {
+    console.warn(`Category selected: ${newCategory}`)
+    setCategory(newCategory)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md space-y-6">
@@ -41,7 +46,7 @@ function App() {
           {Object.keys(EMOJI_CATEGORIES).map((cat) => (
             <button
               key={cat}
-              onClick={() => setCategory(cat as keyof typeof EMOJI_CATEGORIES)}
+              onClick={() => handleCategoryChange(cat as keyof typeof EMOJI_CATEGORIES)}
               className={`p-3 rounded-lg font-medium transition-all ${
                 category === cat 
                   ? 'bg-purple-500 text-white' 
