@@ -1,6 +1,9 @@
 
 import { useState } from 'react'
 import { Copy, Shuffle } from 'lucide-react'
+import { Routes, Route } from 'react-router-dom'
+import { Login } from './Login'
+import { Nav } from './Nav'
 
 const EMOJI_CATEGORIES = {
   faces: ['😀', '😂', '🥹', '😊', '😇', '🥰', '😍', '🤩', '😘', '😋'],
@@ -9,7 +12,7 @@ const EMOJI_CATEGORIES = {
   hearts: ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💖'],
 }
 
-function App() {
+function EmojiGenerator() {
   const [currentEmoji, setCurrentEmoji] = useState('😊')
   const [category, setCategory] = useState<keyof typeof EMOJI_CATEGORIES>('faces')
   const [recentEmojis, setRecentEmojis] = useState<string[]>([])
@@ -31,7 +34,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center p-4">
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-800">Emoji Generator</h1>
         
@@ -94,6 +97,18 @@ function App() {
           </div>
         )}
       </div>
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Nav />
+      <Routes>
+        <Route path="/" element={<EmojiGenerator />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </div>
   )
 }
